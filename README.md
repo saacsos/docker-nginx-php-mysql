@@ -1,4 +1,6 @@
-# Nginx PHP MySQL [![Build Status](https://travis-ci.org/nanoninja/docker-nginx-php-mysql.svg?branch=master)](https://travis-ci.org/nanoninja/docker-nginx-php-mysql) [![GitHub version](https://badge.fury.io/gh/nanoninja%2Fdocker-nginx-php-mysql.svg)](https://badge.fury.io/gh/nanoninja%2Fdocker-nginx-php-mysql)
+# Nginx PHP MySQL
+
+> forked from [nanoninja/docker-nginx-php-mysql](https://github.com/nanoninja/docker-nginx-php-mysql)
 
 Docker running Nginx, PHP-FPM, Composer, MySQL and PHPMyAdmin.
 
@@ -99,13 +101,21 @@ ___
 To install [Git](http://git-scm.com/book/en/v2/Getting-Started-Installing-Git), download it and install following the instructions :
 
 ```sh
-git clone https://github.com/nanoninja/docker-nginx-php-mysql.git
+git clone https://github.com/saacsos/docker-nginx-php-mysql.git
 ```
+
+Or fork and clone yours.
 
 Go to the project directory :
 
 ```sh
 cd docker-nginx-php-mysql
+```
+
+Create and change your own `.env` file
+
+```sh
+cp .env.example .env
 ```
 
 ### Project tree
@@ -310,6 +320,19 @@ docker-compose exec -T php ./app/vendor/bin/phpmd ./app/src text cleancode,codes
 
 ```sh
 docker-compose exec php php -m
+```
+
+### PHP Bash
+
+```sh
+docker exec -it php bash
+```
+
+### PHP REPL (in PHP Bash)
+
+```sh
+cd /var/www/html/app
+composer repl
 ```
 
 ### Handling database
