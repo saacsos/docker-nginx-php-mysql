@@ -8,33 +8,33 @@ Docker running Nginx, PHP-FPM, Composer, MySQL and PHPMyAdmin.
 
 1. [Install prerequisites](#install-prerequisites)
 
-    Before installing project make sure the following prerequisites have been met.
+   Before installing project make sure the following prerequisites have been met.
 
 2. [Clone the project](#clone-the-project)
 
-    We’ll download the code from its repository on GitHub.
+   We’ll download the code from its repository on GitHub.
 
 3. [Configure Nginx With SSL Certificates](#configure-nginx-with-ssl-certificates) [`Optional`]
 
-    We'll generate and configure SSL certificate for nginx before running server.
+   We'll generate and configure SSL certificate for nginx before running server.
 
 4. [Configure Xdebug](#configure-xdebug) [`Optional`]
 
-    We'll configure Xdebug for IDE (PHPStorm or Netbeans).
+   We'll configure Xdebug for IDE (PHPStorm or Netbeans).
 
 5. [Run the application](#run-the-application)
 
-    By this point we’ll have all the project pieces in place.
+   By this point we’ll have all the project pieces in place.
 
 6. [Use Makefile](#use-makefile) [`Optional`]
 
-    When developing, you can use `Makefile` for doing recurrent operations.
+   When developing, you can use `Makefile` for doing recurrent operations.
 
 7. [Use Docker Commands](#use-docker-commands)
 
-    When running, you can use docker commands for doing recurrent operations.
+   When running, you can use docker commands for doing recurrent operations.
 
-___
+---
 
 ## Install prerequisites
 
@@ -48,11 +48,11 @@ For now, this project has been mainly created for Unix `(Linux/MacOS)`. Perhaps 
 
 All requisites should be available for your distribution. The most important are :
 
-* [Git](https://git-scm.com/downloads)
-* [Docker](https://docs.docker.com/engine/installation/)
-* [Docker Compose](https://docs.docker.com/compose/install/)
+- [Git](https://git-scm.com/downloads)
+- [Docker](https://docs.docker.com/engine/installation/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
-Check if `docker-compose` is already installed by entering the following command : 
+Check if `docker-compose` is already installed by entering the following command :
 
 ```sh
 which docker-compose
@@ -60,7 +60,7 @@ which docker-compose
 
 Check Docker Compose compatibility :
 
-* [Compose file version 3 reference](https://docs.docker.com/compose/compose-file/)
+- [Compose file version 3 reference](https://docs.docker.com/compose/compose-file/)
 
 The following is optional but makes life more enjoyable :
 
@@ -76,25 +76,25 @@ sudo apt install build-essential
 
 ### Images to use
 
-* [Nginx](https://hub.docker.com/_/nginx/)
-* [MySQL](https://hub.docker.com/_/mysql/)
-* [PHP-FPM](https://hub.docker.com/r/nanoninja/php-fpm/)
-* [Composer](https://hub.docker.com/_/composer/)
-* [PHPMyAdmin](https://hub.docker.com/r/phpmyadmin/phpmyadmin/)
-* [Generate Certificate](https://hub.docker.com/r/jacoelho/generate-certificate/)
+- [Nginx](https://hub.docker.com/_/nginx/)
+- [MySQL](https://hub.docker.com/_/mysql/)
+- [PHP-FPM](https://hub.docker.com/r/nanoninja/php-fpm/)
+- [Composer](https://hub.docker.com/_/composer/)
+- [PHPMyAdmin](https://hub.docker.com/r/phpmyadmin/phpmyadmin/)
+- [Generate Certificate](https://hub.docker.com/r/jacoelho/generate-certificate/)
 
 You should be careful when installing third party web servers such as MySQL or Nginx.
 
 This project use the following ports :
 
 | Server     | Port |
-|------------|------|
+| ---------- | ---- |
 | MySQL      | 8989 |
 | PHPMyAdmin | 8080 |
 | Nginx      | 8000 |
 | Nginx SSL  | 3000 |
 
-___
+---
 
 ## Clone the project
 
@@ -150,7 +150,7 @@ cp .env.example .env
         └── index.php
 ```
 
-___
+---
 
 ## Configure Nginx With SSL Certificates
 
@@ -160,27 +160,27 @@ If you modify the host name, do not forget to add it to the `/etc/hosts` file.
 
 1. Generate SSL certificates
 
-    ```sh
-    source .env && docker run --rm -v $(pwd)/etc/ssl:/certificates -e "SERVER=$NGINX_HOST" jacoelho/generate-certificate
-    ```
+   ```sh
+   source .env && docker run --rm -v $(pwd)/etc/ssl:/certificates -e "SERVER=$NGINX_HOST" jacoelho/generate-certificate
+   ```
 
 2. Configure Nginx
 
-    Do not modify the `etc/nginx/default.conf` file, it is overwritten by  `etc/nginx/default.template.conf`
+   Do not modify the `etc/nginx/default.conf` file, it is overwritten by `etc/nginx/default.template.conf`
 
-    Edit nginx file `etc/nginx/default.template.conf` and uncomment the SSL server section :
+   Edit nginx file `etc/nginx/default.template.conf` and uncomment the SSL server section :
 
-    ```sh
-    # server {
-    #     server_name ${NGINX_HOST};
-    #
-    #     listen 443 ssl;
-    #     fastcgi_param HTTPS on;
-    #     ...
-    # }
-    ```
+   ```sh
+   # server {
+   #     server_name ${NGINX_HOST};
+   #
+   #     listen 443 ssl;
+   #     fastcgi_param HTTPS on;
+   #     ...
+   # }
+   ```
 
-___
+---
 
 ## Configure Xdebug
 
@@ -190,59 +190,60 @@ For a better integration of Docker to PHPStorm, use the [documentation](https://
 
 1. Get your own local IP address :
 
-    ```sh
-    sudo ifconfig
-    ```
+   ```sh
+   sudo ifconfig
+   ```
 
 2. Edit php file `etc/php/php.ini` and comment or uncomment the configuration as needed.
 
 3. Set the `remote_host` parameter with your IP :
 
-    ```sh
-    xdebug.remote_host=192.168.0.1 # your IP
-    ```
-___
+   ```sh
+   xdebug.remote_host=192.168.0.1 # your IP
+   ```
+
+---
 
 ## Run the application
 
-1. Copying the composer configuration file : 
+1. Copying the composer configuration file :
 
-    ```sh
-    cp web/app/composer.json.dist web/app/composer.json
-    ```
+   ```sh
+   cp web/app/composer.json.dist web/app/composer.json
+   ```
 
 2. Start the application :
 
-    ```sh
-    docker-compose up -d
-    ```
+   ```sh
+   docker-compose up -d
+   ```
 
-    **Please wait this might take a several minutes...**
+   **Please wait this might take a several minutes...**
 
-    ```sh
-    docker-compose logs -f # Follow log output
-    ```
+   ```sh
+   docker-compose logs -f # Follow log output
+   ```
 
 3. Open your favorite browser :
 
-    * [http://localhost:8000](http://localhost:8000/)
-    * [https://localhost:3000](https://localhost:3000/) ([HTTPS](#configure-nginx-with-ssl-certificates) not configured by default)
-    * [http://localhost:8080](http://localhost:8080/) PHPMyAdmin (username: dev, password: dev)
+   - [http://localhost:8000](http://localhost:8000/)
+   - [https://localhost:3000](https://localhost:3000/) ([HTTPS](#configure-nginx-with-ssl-certificates) not configured by default)
+   - [http://localhost:8080](http://localhost:8080/) PHPMyAdmin (username: dev, password: dev)
 
 4. Stop and clear services
 
-    ```sh
-    docker-compose down -v
-    ```
+   ```sh
+   docker-compose down -v
+   ```
 
-___
+---
 
 ## Use Makefile
 
-When developing, you can use [Makefile](https://en.wikipedia.org/wiki/Make_(software)) for doing the following operations :
+When developing, you can use [Makefile](<https://en.wikipedia.org/wiki/Make_(software)>) for doing the following operations :
 
 | Name          | Description                                  |
-|---------------|----------------------------------------------|
+| ------------- | -------------------------------------------- |
 | apidoc        | Generate documentation of API                |
 | clean         | Clean directories for reset                  |
 | code-sniff    | Check the API with PHP Code Sniffer (`PSR2`) |
@@ -270,7 +271,7 @@ Show help :
 make help
 ```
 
-___
+---
 
 ## Use Docker commands
 
@@ -328,7 +329,7 @@ docker-compose exec php php -m
 docker exec -it php bash
 ```
 
-### PHP REPL (in PHP Bash)
+#### PHP REPL (in PHP Bash)
 
 ```sh
 cd /var/www/html/app
@@ -379,7 +380,6 @@ source .env && docker exec $(docker-compose ps -q mysqldb) mysqldump -u"$MYSQL_R
 source .env && docker exec -i $(docker-compose ps -q mysqldb) mysql -u"$MYSQL_ROOT_USER" -p"$MYSQL_ROOT_PASSWORD" < "data/db/dumps/YOUR_DB_NAME_dump.sql"
 ```
 
-
 #### Connecting MySQL from [PDO](http://php.net/manual/en/book.pdo.php)
 
 ```php
@@ -393,7 +393,7 @@ source .env && docker exec -i $(docker-compose ps -q mysqldb) mysql -u"$MYSQL_RO
 ?>
 ```
 
-___
+---
 
 ## Help us
 
