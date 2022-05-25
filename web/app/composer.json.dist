@@ -5,18 +5,31 @@
     "require-dev": {
         "phpmd/phpmd": "@stable",
         "phpunit/phpunit": "^9.0",
-        "squizlabs/php_codesniffer": "3.5.*"
+        "squizlabs/php_codesniffer": "3.5.*",
+        "ramsey/composer-repl": "^1.4"
     },
     "autoload": {
         "psr-4": {
-            "App\\Acme\\": "src/"
+            "App\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "AppTest\\Acme\\": "test/"
+            "AppTest\\": "test/"
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "extra": {
+        "ramsey/composer-repl": {
+            "includes": [
+                "tests/bootstrap.php"
+            ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "ramsey/composer-repl": true
+        }
+    }
 }
